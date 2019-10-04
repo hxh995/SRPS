@@ -2,11 +2,14 @@ var http = require('http');
 var url=require('url');
 var fs=require('fs');
 var querystring = require('querystring');
+var config = require("./config");
+const path = require('path');
+
 
 function startServer(route,handle){
     var onRequest = function(request,response){
         var pathname = url.parse(request.url).pathname;
-        
+        var query= url.parse(request.url).query;
         console.log('Request received '+ pathname);
         var data ='';
         request.on("error",function(err){
@@ -18,9 +21,9 @@ function startServer(route,handle){
             if(request.method==="POST"){
                 route(handle,pathname,response,querystring.parse(data));
             }else{
-                var params = url.parse(request.url,true).query;
+                var query = url.parse(request.url,true).query;
 
-                route(handle,pathname,response,params);
+                route(handle,pathname,response,query);
             }
             
         });

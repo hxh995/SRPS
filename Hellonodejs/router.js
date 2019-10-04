@@ -2,12 +2,12 @@ var fs = require('fs');
 
 
 
-function route(handle,pathname,response,params){
+function route(handle,pathname,response,query){
     console.log('Routing a request for '+pathname);
     
 
     if (typeof handle[pathname]==='function'){
-        handle[pathname](response,params);
+        handle[pathname](response,query);
 
     }else{
             response.writeHead(200,{'Content-Type':'text/html'});

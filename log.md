@@ -20,3 +20,12 @@
 
 ​			问题： location 路由解析，json配置和导入导出
 
++ 第四天
+
+  + 完成转发给下游服务器proxy中间插件代码部分
+  + 了解sever和location解析规则（准备拿json传送
+  + 进行静态文件服务器搭建
+
+  问题 ： 静态文件服务器搭建如何插入正常sever的request中 （以及server location等配置插入
+
+  

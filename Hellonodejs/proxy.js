@@ -2,13 +2,11 @@ const http = require("http");
 const assert = require("assert");
 const log = require("./log");
 
-
-
-
-
 module.exports = function reverseProxy(options){
     //由于需要配置config.json 所以未设置数组assert
-    assert(options.servers.length>0,"options.servers 的长度必须大于0");
+    //assert(options.servers.length>0,"options.servers 的长度必须大于0");
+    console.log(options.servers);
+
 
     //解析服务器地址 生成hostname和port
     function test(str){
@@ -33,6 +31,31 @@ module.exports = function reverseProxy(options){
     }
     return function proxy(req,res){
         //生成代理请求信息
-        const target=
-    }
-}
+        const target=servers;
+        const info = {
+            hostname:servers.hostname,
+            port:servers.port,
+            method:req.method,
+            path:req.url,
+            headers:req.headers
+
+        };
+        const id = `${req.method} ${req.url} => ${target.hostname}:${target.port}`;
+        log("[%s]代理请求",id);
+
+
+        //发送代理请求
+        const req2 = http.request(info,function(res2){
+            res2.on("error",bindError(req,res,id));
+            log("[%s] 响应 : %s",id,res2.statusCode);
+            res.writeHead(res2.statusCode,res2.headers);
+            res2.pipe(res);
+
+        });
+        req.pipe(req2);
+        req2.on("error",bindError(req,res,id));
+    };
+
+};
+
+
