@@ -9,34 +9,23 @@ const path = require('path');
 function startServer(route,handle){
     var onRequest = function(request,response){
         var pathname = url.parse(request.url).pathname;
-        var query= url.parse(request.url).query;
+        
         console.log('Request received '+ pathname);
-        var data ='';
-        request.on("error",function(err){
-            console.error(err);
-        }).on('data',function(chunk){
-            data += chunk;
+        route(handle,pathname,request,response);
+        
 
-        }).on('end',function(){
-            if(request.method==="POST"){
-                route(handle,pathname,response,querystring.parse(data));
-            }else{
-                var query = url.parse(request.url,true).query;
-
-                route(handle,pathname,response,query);
-            }
-            
-        });
+    
+    };
        
     
-    }
-    var server = http.createServer(onRequest);
     
-    server.listen(3000);
-    console.log('Server has created!');
-
-
-
+    var server = http.createServer(onRequest).listen(config.listen);
+    
+    
+    console.log(`Server started on port 3000`);
 
 }
+
+
+
 module.exports.startServer = startServer;

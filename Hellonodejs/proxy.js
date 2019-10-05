@@ -46,9 +46,9 @@ module.exports = function reverseProxy(options){
 
         //发送代理请求
         const req2 = http.request(info,function(res2){
-            res2.on("error",bindError(req,res,id));
+            res2.on("error",bindError(request,response,id));
             log("[%s] 响应 : %s",id,res2.statusCode);
-            res.writeHead(res2.statusCode,res2.headers);
+            response.writeHead(res2.statusCode,res2.headers);
             res2.pipe(res);
 
         });
