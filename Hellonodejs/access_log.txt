@@ -1,0 +1,5 @@
+2019-10-8 8:52:42 PM[GET / => 127.0.0.1:6550]Reverse Proxy
+2019-10-8 8:53:23 PM[GET /ping => 127.0.0.1:6550]Reverse Proxy
+2019-10-8 8:54:26 PM[GET /static/app0.js ] response: 200&nbsp
+2019-10-8 8:54:36 PM[GET /static/hhh ] response: 200&nbsp
+2019-10-8 8:56:31 PM[GET /ping => 127.0.0.1:6550]Reverse Proxy
